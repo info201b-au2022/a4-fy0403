@@ -1,7 +1,7 @@
 ---
-title: "Your A4 Report Title (TODO: Revise title)"
-author: "Your Name"
-date: '2022-11-01'
+title: "Racial discrimination issued seen in black proportion in jails 2007"
+author: "Fengyuan Chen"
+date: '2022-11-21'
 output: html_document
 ---
 
@@ -10,36 +10,41 @@ source("../source/a4-helpers.R")
 source("../source/analysis.R")
 ```
 
-## Abstract 
-[TODO: Include a short abstract (about 50 words)]
+## Abstract
+In this project, I focused on finding racial inequalities in prisons by comparing the percentage of black offenders in state prisons in the United States in 2007. I also compared different races and looked for correlations in different states through images, charts, and other methods.
 
-# Test (TODO: Remove before submission!!)
+## Introduction
+Racial discrimination is a historical legacy in the United States, and despite the desire to eliminate its effects through legislation and education, racial inequality continues to exist in American society. For example, we can clearly see the discrimination against blacks in the Floyd case, where black suspects are very easily judged as dangerous and treated rudely. This dataset hopes to expose racial inequality by collecting and analyzing incarceration data. It is clear that sociologists studying racial inequality are direct stakeholders, as this dataset will help them to draw conclusions more easily. Racially discriminated people, especially blacks, are indirect stakeholders because this dataset is helping them to address the discrimination that exists in society.
+
+
+## Data Summary
+I try to Count black/white proportion in jails in 2007, because I think it might be the easiest
+way to see if there exists a very obvious inequality in jails. Furthermore, I also find the specific state with highest proportion of black/white people in jails which may help us look for how inequality manifests itself in different states.
+
+## Growth of the United States Prison Population
 ```{r echo=FALSE}
-q1_string <- test_query1()
-num <- 5
+plot_jail_pop_for_us()
 ```
-As you know, this is a markdown report. The [R Markdown Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) is **useful!**
+This chart investigates "how the U.S. prison population has increased from 1970 to 2018." From the graph we can see that the U.S. prison population increased rapidly between 1980 and 2010, by about 600,000 people. After 2010 the trend slowed down a lot.
 
-* Here's a test of a dynamic variable. Say **"`r q1_string`!!!** 
-* Here's another test. A vector
-of numbers: `r test_query2(num)`.
-
-Recall that _{r echo=TRUE}_ can be used to display the code, 
-which is very useful when developing and debugging a report. Here's an example: 
-
-```{r echo=TRUE}
-num <- 5
-sum <- sum(test_query2(num))
-print(sum)
+## Growth of Prison Population by State
+```{r echo=FALSE, eval=TRUE, message=FALSE}
+plot_jail_pop_by_states(c("AL", "CA", "AR"))
 ```
+  This chart shows the change in prison population in each state from 1970 to 2018, with CA remaining high and trending upward, and the remaining states rising slightly, but still relatively stable.
 
-## Introduction 
-[TODO]
+## <variable comparison that reveals potential patterns of inequality>
+```{r echo=FALSE, eval=TRUE, message=FALSE}
+plot_black_by_states_2007()
+```  
+*Does the racial inequality actually exists?*  
 
-## Data Summary 
-[TODO]
+The table shows that more than half of the state prisons have more than 50% black population (in addition to blacks and whites, there are Asians, Latinos, other racial minorities, etc., so 50% is already a high percentage), which is enough to show the racial inequality among incarcerated offenders. Even in some extreme states, such as DC, there are over 80% black offenders in prison.
 
-[TODO ... other sections ... See Canvas for details]
+## <a map shows potential patterns of inequality that vary geographically>
+```{r echo=FALSE, eval=TRUE, message=FALSE}
+map_black_jail_pop_2007()
+```  
+*In which part of US has the most extreme condition of black proportion in jails?*  
 
-_All the very best with your work!_
-
+From the graph we can see that the southeastern U.S. prisons have a much higher percentage of black incarceration, which can indicate that they have more underlying racial inequality. I think this has to do with the history and beliefs of the American South.
