@@ -10,7 +10,7 @@ library(usmap)
 library(usdata)
 
 
-df <- read.csv("/Users/Owner/Desktop/info201/data/incarceration-trends/incarceration_trends.csv", nrows=-1)
+df <- read.csv("/Users/Owner/Desktop/info201/data/incarceration-trends/incarceration_trends.csv", nrows=-1)  
 
 # The functions might be useful for A4
 source("/Users/Owner/Desktop/info201/assignments/a4-fy0403/source/a4-helpers.R")
