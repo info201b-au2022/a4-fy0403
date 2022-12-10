@@ -18,8 +18,9 @@ Racial discrimination is a historical legacy in the United States, and despite t
 
 
 ## Data Summary
-I try to Count black/white proportion in jails in 2007, because I think it might be the easiest
-way to see if there exists a very obvious inequality in jails. Furthermore, I also find the specific state with highest proportion of black/white people in jails which may help us look for how inequality manifests itself in different states.
+First, I tried to count the black/white ratios in state prisons in 2007 because I thought it might be the easiest way to see if there were very clear inequalities in prisons. I then compared them and got the number of states with higher percentages of blacks. I found that only 16 states had a higher percentage of blacks than whites, which didn't seem to tell me much about the inequality of blacks in prison. I think this data also tells me the impact of population share, a particular number of years, and other factors on the conclusion of "inequality in prison. In addition, I found the states with the highest black/white ratios in prison. It is clear that DC is the state with the highest percentage of blacks in prison, and ME and WV are the states with the highest percentage of whites in prison. With more data analysis and cultural understanding of these states, we can better understand the reasons behind "inequality in prisons".
+
+Translated with www.DeepL.com/Translator (free version)
 
 ## Growth of the United States Prison Population
 ```{r echo=FALSE}
