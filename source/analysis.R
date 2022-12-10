@@ -51,6 +51,14 @@ white_proportion_2007 <- df %>%
   mutate(white_proportion = white_pop / total_pop * 100)%>%
   mutate_if(is.numeric, round)
 
+#Count states where black proportion is higher than the white in 2007.
+black_proportion_2007 <- cbind(black_proportion_2007, white_proportion = white_proportion_2007$white_proportion)
+black_proportion_2007$black_proportion <- sub("NaN","0",black_proportion_2007$black_proportion)
+black_proportion_2007$white_proportion <- sub("NaN","0",black_proportion_2007$white_proportion)
+black_proportion_2007$results = ifelse(black_proportion_2007$black_proportion > black_proportion_2007$white_proportion, '1',
+                      ifelse(black_proportion_2007$black_proportion < black_proportion_2007$white_proportion, '0', '0'))
+state_black_higher <- sum(black_proportion_2007$results == 1)
+
 #Look for the state with highest proportion of black people in jails
 highest_black_proportion_2007 <- black_proportion_2007 %>%
   filter(black_proportion == max(black_proportion, na.rm = TRUE)) %>%
@@ -95,27 +103,29 @@ plot_jail_pop_for_us <- function() {
 #----------------------------------------------------------------------------#
 # This function shows the dataframe of jail population by states in year
 get_jail_pop_by_states <- function(states) {
+  states = c("WA", "OR", "CA", "UT", "AZ")
+  
   df2 <- df %>% 
     select(year, state, total_jail_pop) %>% 
-    group_by(year, state) %>% 
-    filter(state %in% states) %>% 
-    summarise(state_total_pop = sum(total_jail_pop, na.rm = TRUE), .groups = "Maintain")
+    filter(state %in% states) 
   return(df2)
 }
 
 
 # This function shows the chart of jail population by states in year
 plot_jail_pop_by_states <- function(states){
-  plot2 <- ggplot(data = get_jail_pop_by_states(states)) +
-    geom_line(mapping = aes(x = year, y = state_jail_pop, color = state,group = state)) +
+  ggplot(get_jail_pop_by_states(states), 
+         aes(x = year, total_jail_pop, colour = state)) +
+    ggtitle("Increase of Jail Population in U.S. (1970-2018) By State") + 
     labs(
       x = "Year", 
       y = "Total Jail Population",
       title = "Increase of Jail Population in U.S. (1970-2018)",
       caption = "Figure 2. Increase of Jail Population in U.S. (1970-2018)"
-    )
-  return(plot2)
+    )+
+    geom_line()
 }
+plot_jail_pop_by_states()
 
 
 #----------------------------------------------------------------------------#
@@ -146,6 +156,7 @@ plot_black_by_states_2007 <- function(){
     geom_col(mapping = aes(x = state, y = black_jail_proportion),
              fill = "#000099",
              colour = "red") +
+  scale_x_discrete(guide = guide_axis(n.dodge=3))+
     labs(
       x = "State",
       y = "Black Proportion",
@@ -174,7 +185,7 @@ get_black_proportion_jail_2007 <- function() {
 
 # This function returns a map about black people proportion in jails in 2007 in different locations
 map_black_proportion_jail_2007 <- function() {
-  map <- plot_usmap(data = get_black_jail_pop_2018(), values = "black_jail_pop_prop", color = "black") + 
+  map <- plot_usmap(data = get_black_proportion_jail_2007(), values = "black_jail_pop_prop", color = "black") + 
     scale_fill_continuous(
       name = "Black Proportion in Jail (2007)",
       low = "white",
@@ -186,6 +197,7 @@ map_black_proportion_jail_2007 <- function() {
     )
   return(map)
 }
+map_black_proportion_jail_2007()
 
 ## Load data frame ---- 
 
